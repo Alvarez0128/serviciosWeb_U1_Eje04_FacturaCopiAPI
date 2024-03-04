@@ -18,21 +18,26 @@ app.get('/', (req, res) => {
 
 app.post('/clientes', async (req, res) => {
   try {
-    await db.collection('clientes').doc().create({
+    const clienteRef = await db.collection('clientes').add({
       legal_name: req.body.legal_name,
       tax_id: req.body.tax_id,
       tax_system: req.body.tax_system,
       email: req.body.email,
       address: {
-        zip: req.body.address.zip
+        zip: req.body.address.zip 
       }
-    })
-    return res.status(201).json();
+    });
+
+    const clienteSnapshot = await clienteRef.get();
+    const clienteData = clienteSnapshot.data();
+
+    return res.status(201).json({ cliente: clienteData });
   } catch (error) {
     console.error("Error al crear cliente:", error);
     return res.status(500).json({ error: "Error interno del servidor" });
   }
 })
+
 
 
 exports.app = functions.https.onRequest(app)
