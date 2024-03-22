@@ -32,12 +32,12 @@ class InvoiceController {
         };
         const foundProduct = await ProductModel.findProduct(productQuery);
         //console.log(foundProduct)
-        return foundProduct ?? null;
+        return foundProduct;
       }));
 
-      //console.log(productIds)
+      //console.log(products)
       // Verificar existencia de todos los productos
-      if (!products) {
+      if (products.some(product => product === null)) {
         return res.status(404).json({ error: 'Uno o más productos no encontrados' });
       }
 
@@ -48,7 +48,7 @@ class InvoiceController {
         payment_form,
         folio_number,
         series
-        // Puedes agregar más campos aquí según sea necesario
+        
       });
 
       const InvoiceData = invoiceSnapshot.data()
@@ -173,7 +173,7 @@ class InvoiceController {
       await InvoiceModel.deleteInvoice(invoiceId);
 
       // Si se llega a este punto, la factura ha sido eliminada con éxito
-      return res.status(200).json({ message: 'Factura eliminado correctamente' });
+      return res.status(200).json({ message: 'Factura eliminada correctamente' });
     } catch (error) {
       console.error("Error al eliminar la factura:", error);
       return res.status(500).json({ error: "Error interno del servidor" });

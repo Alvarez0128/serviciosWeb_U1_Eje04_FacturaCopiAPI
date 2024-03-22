@@ -49,6 +49,15 @@ class ProductController {
 
           return { ...defaultTax, ...tax };
         });
+      } else {
+        // Si no se especifica taxes en el cuerpo de la solicitud, se agrega el valor por defecto
+        const defaultTax = {
+          rate: 0.16, // Valor por defecto para rate
+          type: 'IVA', // Valor por defecto para type
+          factor: 'Tasa', // Valor por defecto para factor
+          withholding: false // Valor por defecto para withholding
+        };
+        taxes.push(defaultTax);
       }
 
       // Validar y establecer el valor por defecto para local_taxes
@@ -101,7 +110,8 @@ class ProductController {
         sku: req.body.sku || '',
 
         tax_included: taxIncluded,
-        livemode: false,
+        //livemode: false,
+        taxes: taxes,
         created_at: new Date(),
         local_taxes: localTaxes,
         unit_key: unitKey,
@@ -203,6 +213,15 @@ class ProductController {
 
           return { ...defaultTax, ...tax };
         });
+      } else {
+        // Si no se especifica taxes en el cuerpo de la solicitud, se agrega el valor por defecto
+        const defaultTax = {
+          rate: 0.16, // Valor por defecto para rate
+          type: 'IVA', // Valor por defecto para type
+          factor: 'Tasa', // Valor por defecto para factor
+          withholding: false // Valor por defecto para withholding
+        };
+        taxes.push(defaultTax);
       }
 
       // Validar y establecer el valor por defecto para local_taxes
@@ -252,7 +271,8 @@ class ProductController {
         price: req.body.price,
         sku: req.body.sku || '',
         tax_included: taxIncluded,
-        livemode: false,
+        taxes: taxes,
+        //livemode: false,
         created_at: new Date(),
         local_taxes: localTaxes,
         unit_key: unitKey,
