@@ -295,9 +295,7 @@ class ProductController {
     try {
       // Validar si el ID del producto está presente
       const productId = req.params.id;
-      if (!productId) {
-        return res.status(400).json({ error: 'ID de producto no proporcionado' });
-      }
+      
 
       // Validar si el producto existe
       const existingProduct = await ProductModel.getProductById(productId);

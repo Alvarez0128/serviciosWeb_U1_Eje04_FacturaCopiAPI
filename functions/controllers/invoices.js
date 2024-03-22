@@ -159,9 +159,7 @@ class InvoiceController {
     try {
       // Validar si el ID de la factura está presente
       const invoiceId = req.params.id;
-      if (!invoiceId) {
-        return res.status(400).json({ error: 'ID de la factura no proporcionado' });
-      }
+      
 
       // Validar si la factura existe
       const existingInvoice = await InvoiceModel.getInvoiceById(invoiceId);

@@ -170,9 +170,6 @@ class CustomerController {
     try {
       // Validar si el ID del cliente está presente
       const customerId = req.params.id;
-      if (!customerId) {
-        return res.status(400).json({ error: 'ID de cliente no proporcionado' });
-      }
 
       // Validar si el cliente existe
       const existingCustomer = await CustomerModel.getCustomerById(customerId);
